@@ -41,3 +41,42 @@
 
 
 ####路由
+
+
+####服务
+> angularjs中可以使用内建服务，还可以使用自己创建的服务。
+
+- $location
+	- ```$location.abcUrl```获取当前页面的url地址
+	- ```$location.port```返回端口号
+	- ```$location.host```返回域名
+	- ```$location.portocol```返回http协议
+	- ```...```
+- $http
+	- ```$http.get("url").then(function( res ){ var data = res.data })```  向服务器请求数据
+- $timeout
+	- ```$timeout(function(){ console.log("两秒后执行"); },2000)``` 定时器服务
+- $interval
+	- ```$interval(function(){ console.log("每两秒执行"); },2000)```定时器服务
+- 创建自定义服务 
+```
+app.service("serviceName",function(){
+	this.fn = function(x){
+		console.log("自定义服务");
+	}
+});
+```
+- 使用自定义服务
+```
+app.controller("myCtrl",["serviceName",function(serviceName){
+	serviceName.fn();
+}])
+```
+- 过滤器中使用自定义服务
+```
+app.filter('myFormat',['serviceName', function(serviceName) {
+    return function(x) {
+        return serviceName.fn(x);
+    };
+}]);
+```
